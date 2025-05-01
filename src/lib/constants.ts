@@ -5,12 +5,13 @@ export class ImageSrc {
   static readonly FALLBACK = '/images/globals/fallback.png'
   static readonly BLUR_PLACEHOLDER = '/images/globals/blur-placeholder.png'
 
-  //! Team Work Images ------------------------
-  static readonly TEAM_WORK_1 = '/images/teams/t1.jpg';
-  static readonly TEAM_WORK_2 = '/images/teams/t2.jpg';
-  static readonly TEAM_WORK_3 = '/images/teams/t3.jpg';
-  static readonly TEAM_WORK_4 = '/images/teams/t4.png';
 }
 export class VideoSrc {
   static readonly INSTRUCTIONS = '/videos/instructions.mp4';
+}
+export class RoutesName {
+  static readonly LOGIN = '/';
+  static readonly OVERVIEW = '/overview';
+  static readonly DEPARTMENT = '/department';
+  static readonly DEPARTMENT_CREATE = '/department/create';
 }

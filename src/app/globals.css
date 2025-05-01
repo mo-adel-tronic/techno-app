@@ -3,7 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 @theme inline {
   --color-app-primary: var(--app-primary);
   --color-app-primary2: var(--app-primary2);
@@ -21,7 +20,6 @@
   --color-app-card-op: var(--app-card-op);
   --font-araboto: var(--font-family-arabiato);
   --font-madani: var(--font-family-madani);
-
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -89,7 +87,6 @@
   --font-family-madani: 'Madani';
   --lg-content-padding: 2rem;
   --sm-content-padding: 0.5rem;
-
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);

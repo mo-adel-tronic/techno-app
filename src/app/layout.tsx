@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ImageSrc } from "@/lib/constants";
+import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
   icons: ImageSrc.LOGO_ICON,
   title: {
-    default: "Techno Torial",
-    template: "%s | Techno Torial"
+    default: "Techno Torial Admin",
+    template: "%s | Techno Torial Admin",
   }
 }
 export default function RootLayout({
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="ar" dir="rtl">
       <body className="font-araboto min-h-svh flex flex-col justify-between">
         {children}
+        <Toaster />
         <footer className="text-app-foreground text-sm py-3 text-center bg-gray-100">
           <p>Techno Torial &copy; {currentYear}</p>
         </footer>
