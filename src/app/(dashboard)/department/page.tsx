@@ -1,8 +1,9 @@
 import HeaderBanner from '@/components/dashboard/HeaderBanner'
+import getAllDepartments from '@/features/department/usecases/GetAll'
 import { RoutesName } from '@/lib/constants'
-import React from 'react'
 
-export default function Department() {
+export default async function Department() {
+  const departments = await getAllDepartments()
   return (
     <>
     <HeaderBanner title='إدارة القسم العلمي' linkCreate={{

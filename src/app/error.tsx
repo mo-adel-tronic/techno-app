@@ -14,7 +14,7 @@ export default function GlobalError({ error, reset }: { error: Error; reset: () 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-6">
       <h1 className="text-4xl font-bold mb-4 text-center">حدث خطأ ما</h1>
-      <p className="text-muted-foreground mb-8 text-center">هناك خطأ غير متوقع حدث الأن</p>
+      <p className="text-muted-foreground mb-8 text-center">{error.message}</p>
       <div className="flex space-x-4">
         <Button onClick={() => reset()}>حاول مرة أخرى</Button>
         <Button variant="outline" onClick={() => router.push('/')}>
