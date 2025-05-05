@@ -54,7 +54,7 @@ export default function DepartmentForm({
 
     try {
       // In a real app, you would send this data to your API
-      console.log("Form data:", data);
+      console.log("Form data:", data, id);
 
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));

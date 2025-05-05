@@ -1,5 +1,5 @@
 import HeaderBanner from "@/components/dashboard/HeaderBanner"
-import DepartmentForm from "@/features/department/components/DepartmentForm"
+// import DepartmentForm from "@/features/department/components/DepartmentForm"
 import { RoutesName } from "@/lib/constants"
 
 export default function DepartmentEdit() {

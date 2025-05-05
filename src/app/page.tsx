@@ -7,14 +7,14 @@ import { useState } from "react";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleMicrosoftLogin = async () => {
-    setIsLoading(true)
-    // Simulate authentication delay
-    setTimeout(() => {
-      setIsLoading(false)
-      // Redirect would happen here in a real implementation
-    }, 1500)
-  }
+  // const handleMicrosoftLogin = async () => {
+  //   setIsLoading(true)
+  //   // Simulate authentication delay
+  //   setTimeout(() => {
+  //     setIsLoading(false)
+  //     // Redirect would happen here in a real implementation
+  //   }, 1500)
+  // }
   return (
     <main className="min-h-[calc(100vh-45px)] flex items-center justify-center bg-app-card px-8">
       <div style={{

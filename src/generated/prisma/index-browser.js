@@ -4,20 +4,14 @@
 
 Object.defineProperty(exports, "__esModule", { value: true });
 
-const {
-  Decimal,
-  objectEnumValues,
-  makeStrictEnum,
-  Public,
-  getRuntime,
-  skip
-} = require('./runtime/index-browser.js')
+import { Decimal, objectEnumValues, makeStrictEnum, Public, getRuntime } from './runtime/index-browser.js';
 
 
 const Prisma = {}
 
-exports.Prisma = Prisma
-exports.$Enums = {}
+const _Prisma = Prisma;
+export { _Prisma as Prisma };
+export const $Enums = {}
 
 /**
  * Prisma Client JS version: 6.7.0
@@ -113,54 +107,54 @@ Prisma.NullTypes = {
  * Enums
  */
 
-exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+_Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
   RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
-exports.Prisma.ClassroomsScalarFieldEnum = {
+_Prisma.ClassroomsScalarFieldEnum = {
   id: 'id',
   duration_plans: 'duration_plans',
   subject_id: 'subject_id',
   teacher_id: 'teacher_id'
 };
 
-exports.Prisma.Degree_planScalarFieldEnum = {
+_Prisma.Degree_planScalarFieldEnum = {
   id: 'id',
   theoretical: 'theoretical',
   practical: 'practical',
   activity: 'activity'
 };
 
-exports.Prisma.DepartmentScalarFieldEnum = {
+_Prisma.DepartmentScalarFieldEnum = {
   id: 'id',
   name: 'name',
   depart_code: 'depart_code'
 };
 
-exports.Prisma.Duration_plansScalarFieldEnum = {
+_Prisma.Duration_plansScalarFieldEnum = {
   id: 'id',
   edu_year: 'edu_year',
   term: 'term',
   semester: 'semester'
 };
 
-exports.Prisma.Exam_planScalarFieldEnum = {
+_Prisma.Exam_planScalarFieldEnum = {
   id: 'id',
   theoretical: 'theoretical',
   practical: 'practical'
 };
 
-exports.Prisma.Hour_planScalarFieldEnum = {
+_Prisma.Hour_planScalarFieldEnum = {
   id: 'id',
   theoretical: 'theoretical',
   practical: 'practical',
   credit: 'credit'
 };
 
-exports.Prisma.Learning_programsScalarFieldEnum = {
+_Prisma.Learning_programsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   subject_hours: 'subject_hours',
@@ -171,7 +165,7 @@ exports.Prisma.Learning_programsScalarFieldEnum = {
   advisor_assistant: 'advisor_assistant'
 };
 
-exports.Prisma.Program_requirementsScalarFieldEnum = {
+_Prisma.Program_requirementsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   credit_hour: 'credit_hour',
@@ -180,20 +174,20 @@ exports.Prisma.Program_requirementsScalarFieldEnum = {
   program_id: 'program_id'
 };
 
-exports.Prisma.ResultsScalarFieldEnum = {
+_Prisma.ResultsScalarFieldEnum = {
   id: 'id',
   student_id: 'student_id',
   classroom_id: 'classroom_id',
   st_status: 'st_status'
 };
 
-exports.Prisma.SpecializationScalarFieldEnum = {
+_Prisma.SpecializationScalarFieldEnum = {
   id: 'id',
   name: 'name',
   depart_id: 'depart_id'
 };
 
-exports.Prisma.StudentsScalarFieldEnum = {
+_Prisma.StudentsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   registered_at: 'registered_at',
@@ -205,7 +199,7 @@ exports.Prisma.StudentsScalarFieldEnum = {
   specialization_id: 'specialization_id'
 };
 
-exports.Prisma.SubjectsScalarFieldEnum = {
+_Prisma.SubjectsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   subject_code: 'subject_code',
@@ -215,49 +209,49 @@ exports.Prisma.SubjectsScalarFieldEnum = {
   require_id: 'require_id'
 };
 
-exports.Prisma.TeachersScalarFieldEnum = {
+_Prisma.TeachersScalarFieldEnum = {
   id: 'id',
   name: 'name',
   degree: 'degree'
 };
 
-exports.Prisma.Teachers_jobsScalarFieldEnum = {
+_Prisma.Teachers_jobsScalarFieldEnum = {
   id: 'id',
   jobs: 'jobs',
   teacher_id: 'teacher_id',
   depart_id: 'depart_id'
 };
 
-exports.Prisma.SortOrder = {
+_Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
 };
 
-exports.Prisma.NullsOrder = {
+_Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
 
-exports.Prisma.departmentOrderByRelevanceFieldEnum = {
+_Prisma.departmentOrderByRelevanceFieldEnum = {
   name: 'name',
   depart_code: 'depart_code'
 };
 
-exports.Prisma.learning_programsOrderByRelevanceFieldEnum = {
+_Prisma.learning_programsOrderByRelevanceFieldEnum = {
   name: 'name',
   program_code: 'program_code'
 };
 
-exports.Prisma.program_requirementsOrderByRelevanceFieldEnum = {
+_Prisma.program_requirementsOrderByRelevanceFieldEnum = {
   name: 'name',
   require_code: 'require_code'
 };
 
-exports.Prisma.specializationOrderByRelevanceFieldEnum = {
+_Prisma.specializationOrderByRelevanceFieldEnum = {
   name: 'name'
 };
 
-exports.Prisma.studentsOrderByRelevanceFieldEnum = {
+_Prisma.studentsOrderByRelevanceFieldEnum = {
   name: 'name',
   student_code: 'student_code',
   national_n: 'national_n',
@@ -265,35 +259,35 @@ exports.Prisma.studentsOrderByRelevanceFieldEnum = {
   nation_phone: 'nation_phone'
 };
 
-exports.Prisma.subjectsOrderByRelevanceFieldEnum = {
+_Prisma.subjectsOrderByRelevanceFieldEnum = {
   name: 'name',
   subject_code: 'subject_code'
 };
 
-exports.Prisma.teachersOrderByRelevanceFieldEnum = {
+_Prisma.teachersOrderByRelevanceFieldEnum = {
   name: 'name'
 };
 
-exports.Prisma.teachers_jobsOrderByRelevanceFieldEnum = {
+_Prisma.teachers_jobsOrderByRelevanceFieldEnum = {
   jobs: 'jobs'
 };
-exports.duration_plans_term = exports.$Enums.duration_plans_term = {
+export const duration_plans_term = $Enums.duration_plans_term = {
   Spring: 'Spring',
   Fall: 'Fall',
   Summer: 'Summer'
 };
 
-exports.program_requirements_type = exports.$Enums.program_requirements_type = {
+export const program_requirements_type = $Enums.program_requirements_type = {
   Optional: 'Optional',
   Mandatory: 'Mandatory'
 };
 
-exports.results_st_status = exports.$Enums.results_st_status = {
+export const results_st_status = $Enums.results_st_status = {
   Passed: 'Passed',
   Failed: 'Failed'
 };
 
-exports.teachers_degree = exports.$Enums.teachers_degree = {
+export const teachers_degree = $Enums.teachers_degree = {
   ProfessorDoctor: 'ProfessorDoctor',
   AssociateProfessorDoctor: 'AssociateProfessorDoctor',
   Doctor: 'Doctor',
@@ -301,7 +295,7 @@ exports.teachers_degree = exports.$Enums.teachers_degree = {
   Lecturer: 'Lecturer'
 };
 
-exports.Prisma.ModelName = {
+_Prisma.ModelName = {
   classrooms: 'classrooms',
   degree_plan: 'degree_plan',
   department: 'department',
@@ -324,7 +318,7 @@ exports.Prisma.ModelName = {
 class PrismaClient {
   constructor() {
     return new Proxy(this, {
-      get(target, prop) {
+      get() {
         let message
         const runtime = getRuntime()
         if (runtime.isEdge) {
@@ -345,6 +339,7 @@ If this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-r
   }
 }
 
-exports.PrismaClient = PrismaClient
+const _PrismaClient = PrismaClient;
+export { _PrismaClient as PrismaClient };
 
 Object.assign(exports, Prisma)
