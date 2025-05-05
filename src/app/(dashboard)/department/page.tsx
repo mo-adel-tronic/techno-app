@@ -13,6 +13,7 @@ export default async function Department() {
     }} />
 
     <DepartmentTable data={departments} />
+    
     </>
   )
 }
