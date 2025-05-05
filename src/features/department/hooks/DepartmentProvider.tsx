@@ -5,11 +5,9 @@ import { Department } from '../types';
 
 const DepartmentContext = createContext<{ department: Department | null, setDepartment: Dispatch<SetStateAction<Department | null>> } | null>(null);
 
-const DepartmentProvider = ({ children, id } : {
+const DepartmentProvider = ({ children } : {
     children: React.ReactNode,
-    id: number
   }) => {
-    console.log(id)
   const [data, setData] = useState<Department|null>(null);
   //   const getDepartmentMethod = async () => {
   //       const dep = await getDepartment(id)
