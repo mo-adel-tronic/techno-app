@@ -1,4 +1,5 @@
 import HeaderBanner from '@/components/dashboard/HeaderBanner'
+import DepartmentTable from '@/features/department/components/DepartmentTable'
 import getAllDepartments from '@/features/department/usecases/GetAll'
 import { RoutesName } from '@/lib/constants'
 
@@ -11,7 +12,7 @@ export default async function Department() {
         href: RoutesName.DEPARTMENT_CREATE
     }} />
 
-    
+    <DepartmentTable data={departments} />
     </>
   )
 }

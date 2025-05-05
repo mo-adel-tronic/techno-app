@@ -12,7 +12,7 @@ export enum RoutesName {
   LOGIN = '/',
   OVERVIEW = '/overview',
   DEPARTMENT = '/department',
-  DEPARTMENT_CREATE = '/department/create',
+  DEPARTMENT_CREATE = '/department/create'
 }
 export enum Envireonment {
   production = 'production',
