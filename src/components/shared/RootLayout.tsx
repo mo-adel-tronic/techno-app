@@ -31,7 +31,7 @@ export default function RootRender({
     </html>
   } else {
     return <html lang="ar" dir="rtl">
-    <body className="font-araboto min-h-svh flex flex-col justify-between">
+    <body className="font-text min-h-svh flex flex-col justify-between">
       {children}
       <Toaster toastOptions={{
         classNames: {
