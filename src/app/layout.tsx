@@ -1,6 +1,7 @@
 import RootRender from "@/components/shared/RootLayout";
 import { ImageSrc } from "@/constants/MediaSrc";
 import type { Metadata } from "next";
+import '@/styles/globals.css'
 
 export const metadata: Metadata = {
   icons: ImageSrc.LOGO_ICON,

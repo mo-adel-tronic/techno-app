@@ -4,6 +4,25 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-app-primary: var(--app-primary);
+  --color-app-primary2: var(--app-primary2);
+  --color-app-primary-foreground: var(--app-primary-foreground);
+  --color-app-secondary-on-primary: var(--app-secondary-on-primary);
+  --color-app-secondary: var(--app-secondary);
+  --color-app-secondary-foreground: var(--app-secondary-foreground);
+  --color-app-hover: var(--app-hover);
+  --color-app-hover-foreground: var(--app-hover-foreground);
+  --color-app-background: var(--app-background);
+  --color-app-foreground: var(--app-foreground);
+  --color-app-text: var(--app-text);
+  --color-app-placeholder: var(--app-placeholder);
+  --color-app-card: var(--app-card);
+  --color-app-card-op: var(--app-card-op);
+  --font-titles: var(--font-family-titles);
+  --font-text: var(--font-family-text);
+  --font-text-en: var(--font-family-text-en);
+
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -41,7 +60,45 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@font-face {
+  font-family: 'Allerta';
+  src: url('/fonts/Allerta-Regular.ttf');
+}
+@font-face {
+  font-family: 'Cairo';
+  src: url('/fonts/Cairo-Bold.ttf');
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'Cairo';
+  src: url('/fonts/Cairo-Regular.ttf');
+}
+@font-face {
+  font-family: 'Tajawal';
+  src: url('/fonts/Tajawal-Regular.ttf');
+}
+
 :root {
+  --app-primary: #1a0342;
+  --app-primary2: #736DDD;
+  --app-primary-foreground: #fbfbfb;
+  --app-secondary-on-primary: #FFE04A;
+  --app-secondary: #fab615;
+  --app-secondary-foreground: #2d2d3a;
+  --app-hover: #eaa708;
+  --app-hover-foreground: #2d2d3a;
+  --app-background: #F5F4F4;
+  --app-foreground: #3D3D51;
+  --app-text: #64648F;
+  --app-placeholder: #36365142;
+  --app-card: #64648F;
+  --app-card-op: #64648fd2;
+  --font-family-titles: 'Tajawal';
+  --font-family-text: 'Cairo';
+  --font-family-text-en: 'Allerta';
+  --lg-content-padding: 2rem;
+  --sm-content-padding: 0.5rem;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -113,6 +170,9 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
