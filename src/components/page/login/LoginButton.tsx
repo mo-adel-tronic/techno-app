@@ -3,13 +3,18 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { MicrosoftLogo } from "./MicrosoftLogo";
+import { signIn } from "next-auth/react";
+import { RoutesName } from "@/constants/RoutesName";
 
 export default function LoginButton() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleMicrosoftLogin = async () => {
     setIsLoading(true);
-    // Login logic
+    await signIn('azure-ad',{
+      redirect: true,
+      callbackUrl: RoutesName.DASHBOARD
+    })
     setIsLoading(false);
   };
   return (

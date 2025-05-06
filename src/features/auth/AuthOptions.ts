@@ -1,7 +1,6 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth, { NextAuthOptions, Session } from 'next-auth';
 import AzureADProvider from 'next-auth/providers/azure-ad';
 import { JWT } from 'next-auth/jwt';
-import { Session } from 'next-auth';
 
 type Token = {
     accessToken: string;
@@ -17,6 +16,17 @@ type Token = {
     refresh_token?: string;
     [key: string]: any;
   };
+
+  declare module "next-auth" {
+    interface Session {
+      user: {
+        id: string;
+        name?: string | null;
+        email?: string | null;
+      };
+      accessToken?: any
+    }
+  }
   
   const env = process.env;
   
