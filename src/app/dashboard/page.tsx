@@ -1,8 +1,12 @@
+import { Teacher } from "@/db/types"
 import { authOptions } from "@/features/auth/AuthOptions"
+import { TeacherRepository } from "@/features/teachers/TeacherRepo"
 import { getServerSession } from "next-auth"
 
 export default async function Dashboard() {
     const session = await getServerSession(authOptions)
+    const data : Teacher | undefined = session ? await TeacherRepository.findByEmail(session.user.email || '') : undefined
+    console.log(data)
   return (
     <div>
         {
