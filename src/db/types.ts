@@ -4,8 +4,8 @@ export interface Teacher {
     name: string;
     email: string;
     login_name: string;
-    degree: 'أ.د'| 'أ.م.د'| 'د'| 'م.م'| 'م'
-    token?: string | null
+    degree: 'أ.د'| 'أ.م.د'| 'د'| 'م.م'| 'م';
+    access_token?: string | null
   }
   
   export interface Permission {

@@ -1,6 +1,9 @@
 import NextAuth, { NextAuthOptions, Session } from 'next-auth';
 import AzureADProvider from 'next-auth/providers/azure-ad';
 import { JWT } from 'next-auth/jwt';
+import { findTeacherByEmail, updateToken } from '../teachers/TeacherRepo';
+// import { findTeacherByEmail, updateToken } from '../teachers/TeacherRepo';
+// import { Teacher } from '@/db/types';
 
 type Token = {
     accessToken: string;
@@ -97,7 +100,7 @@ export const authOptions: NextAuthOptions = {
       account?: any;
     }): Promise<JWT> {
       if (account && user) {
-        return {
+        const newToken = {
           ...token,
           accessToken: account.id_token,
           accessTokenExpires: account?.expires_at
@@ -105,14 +108,19 @@ export const authOptions: NextAuthOptions = {
             : 0,
           refreshToken: account.refresh_token,
           user,
-        };
+        }
+        await updateToken(newToken.accessToken as string, user.email as string)
+        return newToken
       }
 
       if (Date.now() < (Number(token.accessTokenExpires) ?? 0) - 100000 || 0) {
         return token;
       }
-
-      return await refreshAccessToken(token as Token);
+      const refreshToken = await refreshAccessToken(token as Token);
+      if(refreshToken.accessToken) {
+        await updateToken(refreshToken.accessToken as string, user.email as string)
+      }
+      return refreshToken
     },
 
     async session({
@@ -122,7 +130,8 @@ export const authOptions: NextAuthOptions = {
       session: Session;
       token: JWT;
     }): Promise<Session> {
-      if (session.user) {
+      const user = await findTeacherByEmail(token.accessToken as string ,token.email || '')
+      if (session.user && user) {
         session.user = token.user as any;
         (session as any).error = token.error;
         (session as any).accessToken = token.accessToken;

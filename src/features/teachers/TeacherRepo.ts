@@ -1,24 +1,49 @@
+'use server'
+import { RevalidateKey } from "@/constants/RevalidateKey";
 import { db } from "@/db/conn";
 import { Teacher } from "@/db/types";
+import { appCache } from "@/lib/AppCache";
+import { UpdateResult } from "kysely";
 
-export const TeacherRepository = {
-  async findByEmail(email: string): Promise<Teacher | undefined> {
-    return db.selectFrom('teachers')
-      .selectAll()
-      .where('email', '=', email)
-      .executeTakeFirst();
-  },
+export async function findTeacherByEmail(token: string,email: string): Promise<Teacher | undefined> {
+    const cachedData = appCache(
+        async () => {
+            return await db.selectFrom('teachers')
+            .selectAll()
+            .where('email', '=', email)
+            .where('access_token', '=', token)
+            .executeTakeFirst();
+        },
+        [`${RevalidateKey.TeacherGetByEmail}/${email}`],
+        { revalidate: 1800 }
+    )
+    return cachedData()
+}
 
-//   async create(data: { name: string; email: string; password: string }) {
-//     return db.insertInto('users')
-//       .values(data)
-//       .executeTakeFirst();
-//   },
+export async function updateToken(token: string, email: string) : Promise<UpdateResult[]> {
+    await fetch(process.env.APP_URL + 'api/revalidate', {
+        method: "POST",
+        body: JSON.stringify({path: `${RevalidateKey.TeacherGetByEmail}/${email}`})
+    })
+    return db.updateTable('teachers')
+    .set({access_token: token})
+    .where('email', '=', email)
+    .execute()
+}
 
-//   async updateToken(userId: number, token: string) {
-//     return db.updateTable('users')
-//       .set({ token })
-//       .where('id', '=', userId)
-//       .execute();
-//   },
-};
+// export const TeacherRepository = {
+//   ,
+
+// //   async create(data: { name: string; email: string; password: string }) {
+// //     return db.insertInto('users')
+// //       .values(data)
+// //       .executeTakeFirst();
+// //   },
+
+// //   async updateToken(userId: number, token: string) {
+// //     return db.updateTable('users')
+// //       .set({ token })
+// //       .where('id', '=', userId)
+// //       .execute();
+// //   },
+// };
