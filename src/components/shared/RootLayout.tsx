@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Toaster } from "sonner";
 import ErrorBoundary from "@/app/error";
 import LoadingPage from "@/app/loading";
@@ -12,7 +11,6 @@ export default function RootRender({
   }>) {
     const currentYear = new Date().getFullYear();
     const [w, setW] = useState(0)
-    const router = useRouter();
     useEffect(() => {
         setW(window.innerWidth)
       }, []);
