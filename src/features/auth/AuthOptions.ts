@@ -98,7 +98,7 @@ export const authOptions: NextAuthOptions = {
       account?: any;
     }): Promise<JWT> {
       if (account && user) {
-        const newToken = {
+        return {
           ...token,
           accessToken: account.id_token,
           accessTokenExpires: account?.expires_at
@@ -107,26 +107,12 @@ export const authOptions: NextAuthOptions = {
           refreshToken: account.refresh_token,
           user,
         }
-        try{
-          await updateToken(newToken.accessToken || '', user.email as string)
-        } catch (e) {
-          if (e instanceof Error) {
-            throw Error(`token: ${newToken.accessToken}, user: ${user.email}, error: ${e.message}`);
-          } else {
-            throw Error(`token: ${newToken.accessToken}, user: ${user.email}, error: Unknown error`);
-          }
-        }
-        return newToken
       }
 
       if (Date.now() < (Number(token.accessTokenExpires) ?? 0) - 100000 || 0) {
         return token;
       }
-      const refreshToken = await refreshAccessToken(token as Token);
-      // if(refreshToken.accessToken) {
-      //   await updateToken(refreshToken.accessToken as string, user.email as string)
-      // }
-      return refreshToken
+      return await refreshAccessToken(token as Token);
     },
 
     async session({
@@ -143,6 +129,13 @@ export const authOptions: NextAuthOptions = {
         (session as any).accessToken = token.accessToken;
       }
       return session;
+    },
+
+    async signIn({ user, account }) {
+      if (account && user?.email) {
+        await updateToken(account.id_token || '', user.email);
+      }
+      return true;
     },
   },
 };
