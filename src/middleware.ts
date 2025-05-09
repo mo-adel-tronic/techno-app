@@ -5,7 +5,7 @@ import { RoutesName } from "./constants/RoutesName";
 export default async function middleware(request: NextRequest) {
   const token = await getToken({
     req: request,
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.AUTH_SECRET,
   });
   const { pathname } = request.nextUrl;
   if (token && pathname == RoutesName.LOGIN) {
@@ -19,7 +19,7 @@ export default async function middleware(request: NextRequest) {
     if (!key) {
         return NextResponse.json('invalid request')
     }
-    if(key !== process.env.NEXTAUTH_SECRET) {
+    if(key !== process.env.NEXT_PUBLIC_API_KEY) {
         return NextResponse.json('invalid key')
     }
   }

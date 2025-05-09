@@ -1,15 +1,8 @@
-import { authOptions } from "@/features/auth/AuthOptions"
-import { getServerSession } from "next-auth"
-
-export default async function Dashboard() {
-    const session = await getServerSession(authOptions)
-  if(session?.accessToken) {
+export default function Dashboard() {
     return (
         <div>
-            welcome admin
+            Overview Page
         </div>
       )
-  } else {
-    return <h1>error</h1>
-  }
+  
 }

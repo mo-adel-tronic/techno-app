@@ -1,5 +1,6 @@
 'use server'
 import { RevalidateKey } from "@/constants/RevalidateKey";
+import { RoutesName } from "@/constants/RoutesName";
 import { db } from "@/db/conn";
 import { Teacher } from "@/db/types";
 import { appCache } from "@/lib/AppCache";
@@ -21,7 +22,7 @@ export async function findTeacherByEmail(token: string,email: string): Promise<T
 }
 
 export async function updateToken(token: string, email: string) : Promise<UpdateResult[]> {
-    await fetch(process.env.APP_URL + 'api/revalidate', {
+    await fetch(process.env.APP_URL + RoutesName.API_REVALIDATE, {
         method: "POST",
         body: JSON.stringify({path: `${RevalidateKey.TeacherGetByEmail}/${email}`})
     })
