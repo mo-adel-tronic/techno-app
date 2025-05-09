@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions, Session } from 'next-auth';
 import AzureADProvider from 'next-auth/providers/azure-ad';
 import { JWT } from 'next-auth/jwt';
-import { findTeacherByEmail, updateToken } from '../teachers/TeacherRepo';
+import { findTeacherByEmail, updateToken  } from '../teachers/TeacherRepo';
 
 type Token = {
     accessToken: string;
@@ -107,7 +107,15 @@ export const authOptions: NextAuthOptions = {
           refreshToken: account.refresh_token,
           user,
         }
-        await updateToken(newToken.accessToken as string, user.email as string)
+        try{
+          await updateToken(newToken.accessToken || '', user.email as string)
+        } catch (e) {
+          if (e instanceof Error) {
+            throw Error(`token: ${newToken.accessToken}, user: ${user.email}, error: ${e.message}`);
+          } else {
+            throw Error(`token: ${newToken.accessToken}, user: ${user.email}, error: Unknown error`);
+          }
+        }
         return newToken
       }
 
@@ -115,9 +123,9 @@ export const authOptions: NextAuthOptions = {
         return token;
       }
       const refreshToken = await refreshAccessToken(token as Token);
-      if(refreshToken.accessToken) {
-        await updateToken(refreshToken.accessToken as string, user.email as string)
-      }
+      // if(refreshToken.accessToken) {
+      //   await updateToken(refreshToken.accessToken as string, user.email as string)
+      // }
       return refreshToken
     },
 
