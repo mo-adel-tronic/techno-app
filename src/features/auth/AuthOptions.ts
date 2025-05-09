@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions, Session } from 'next-auth';
 import AzureADProvider from 'next-auth/providers/azure-ad';
 import { JWT } from 'next-auth/jwt';
-import { findTeacherByEmail, updateToken  } from '../teachers/TeacherRepo';
+import { findTeacherByEmail, updateToken } from '../teachers/TeacherRepo';
 
 type Token = {
     accessToken: string;
