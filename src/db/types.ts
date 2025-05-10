@@ -1,6 +1,6 @@
 // src/db/types.ts
 export interface Teacher {
-    id?: number;
+    readonly id?: number;
     name: string;
     email: string;
     degree: 'أ.د'| 'أ.م.د'| 'د'| 'م.م'| 'م';
@@ -18,10 +18,17 @@ export interface Teacher {
     id: number;
     name: string;
   }
+
+  export interface Department {
+    readonly id?: number;
+    name: string;
+    depart_code: string;
+}
   
   export interface DB {
     teachers: Teacher;
     permissions: Permission;
     managements: Management;
+    department: Department;
   }
   

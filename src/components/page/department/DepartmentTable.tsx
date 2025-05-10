@@ -3,7 +3,7 @@ import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
 import AppTable from "@/components/shared/table/AppTable"
 import getTableCol from "@/components/shared/table/TableCols"
 import { RoutesName } from "@/constants/RoutesName"
-import { Department } from "@/features/department/type"
+import { Department } from "@/db/types"
 import {
   type ColumnDef,
   type Table as TableType,
@@ -43,7 +43,7 @@ export default function DepartmentTable({data} : Props) {
                 header: "اسم القسم"
             },
             {
-                accessKey: "code",
+                accessKey: "depart_code",
                 header: "كود القسم"
             }
         ],
