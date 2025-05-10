@@ -25,7 +25,7 @@ export default async function DashboardLayout({
                     </Link>
                     <SignoutBtn />
                 </header>
-                <section className="w-[95%] rounded-lg bg-white text-app-text h-[400px] shadow-2xl mt-8 py-6 px-4">
+                <section className="w-[95%] rounded-lg bg-white text-app-text min-h-[400px] shadow-2xl mt-8 py-6 px-4">
                 {children}
                 </section>
                 </main>

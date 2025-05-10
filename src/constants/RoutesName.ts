@@ -4,5 +4,5 @@ export enum RoutesName {
     DEPARTMENT = RoutesName.DASHBOARD + '/department',
     DEPARTMENT_CREATE = RoutesName.DEPARTMENT + '/create',
 
-    API_REVALIDATE = 'api/revalidate'
+    API_REVALIDATE = '/api/revalidate'
   }

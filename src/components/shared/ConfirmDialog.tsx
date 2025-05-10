@@ -30,14 +30,14 @@ export function ConfirmDialog({ open, onOpenChange, title, description, onConfir
             <AlertTriangle className="h-5 w-5" />
             <AlertDialogTitle>{title}</AlertDialogTitle>
           </div>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
+          <AlertDialogDescription className="text-right font-bold text-md">{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>إلغاء</AlertDialogCancel>
           {
             type == 'delete' && <AlertDialogAction
             onClick={onConfirm}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="bg-destructive text-white hover:bg-destructive/60"
           >
             تأكيد الحذف
           </AlertDialogAction>

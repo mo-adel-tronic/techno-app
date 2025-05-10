@@ -64,7 +64,7 @@ export default function AppSidebar({
           className="bg-app-primary text-xs grid text-white border-b-2 border-gray-200/40 py-4 items-center"
         >
           {isOpen && (
-            <div className="w-2/3 text-center">د/ محمد عادل محمد احمد</div>
+            <div className="w-2/3 text-lg text-center font-text-en"><span className="text-app-secondary">T</span>echno <span className="text-app-secondary">T</span>orial</div>
           )}
           <SidebarTrigger
             className="-ml-1 text-white"
@@ -93,7 +93,7 @@ export default function AppSidebar({
                           }`}
                         >
                           {item.icon}
-                          <span className="text-xs">{item.title}</span>
+                          <span className="text-md font-bold">{item.title}</span>
                           <ChevronLeft
                             className={`mr-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 hover:text-app-primary ${
                               currentPath.startsWith(item.href)
@@ -114,7 +114,7 @@ export default function AppSidebar({
                         >
                           <Link href={item.href || "#"}>
                             {item.icon}
-                            <span className="text-xs">{item.title}</span>
+                            <span className="text-md font-bold">{item.title}</span>
                           </Link>
                         </SidebarMenuButton>
                       )}
@@ -135,7 +135,7 @@ export default function AppSidebar({
                                 }`}
                               >
                                 {childItem.icon}
-                                <span className="text-xs">{childItem.title}</span>
+                                <span className="text-md font-bold">{childItem.title}</span>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                           ))}

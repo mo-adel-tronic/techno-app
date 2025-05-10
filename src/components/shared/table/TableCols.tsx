@@ -114,13 +114,13 @@ export default function getTableCol<T extends { id?: number }>({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>الإجراءات</DropdownMenuLabel>
+              <DropdownMenuLabel className="font-bold text-app-primary bg-app-background text-center">الإجراءات</DropdownMenuLabel>
               {actions.map((action, i) => {
                 return (
                   <Fragment key={i}>
                     {action.type == "delete" && (
                       <DropdownMenuItem
-                        className="text-red-600"
+                        className="text-red-600 justify-center hover:text-red-800"
                         onClick={() => {
                           if (action.deleteFuncs) {
                             action.deleteFuncs.setTable(table);
@@ -141,13 +141,14 @@ export default function getTableCol<T extends { id?: number }>({
                               (entity as Record<string, any>)[action.copiedKey]
                             );
                         }}
+                        className="justify-center"
                       >
                         {action.copiedText ? action.copiedText : "نسخ"}
                       </DropdownMenuItem>
                     )}
 
                     {action.type == "navigate" && action.link != undefined && (
-                      <DropdownMenuItem>
+                      <DropdownMenuItem className="justify-center">
                         {action.link.type == "view" && (
                           <Link
                             href={action.link.href + "/" + entity.id!.toString()}

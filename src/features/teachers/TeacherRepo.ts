@@ -16,7 +16,7 @@ export async function findTeacherByEmail(token: string,email: string): Promise<T
             .executeTakeFirst();
         },
         [`${RevalidateKey.TeacherGetByEmail}/${email}`],
-        { revalidate: 1800 }
+        { revalidate: 1800, tags: [`${RevalidateKey.TeacherGetByEmail}/${email}`] }
     )
     return cachedData()
 }

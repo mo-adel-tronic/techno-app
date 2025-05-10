@@ -73,7 +73,7 @@ export default function AppTable<T>({ data, columns,  BulkActions}: Props<T>) {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead className="text-center" key={header.id}>
+                    <TableHead className="text-center font-bold text-lg" key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -95,7 +95,7 @@ export default function AppTable<T>({ data, columns,  BulkActions}: Props<T>) {
                   className="font-madani"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell className="[&>div]:justify-center" key={cell.id}>
+                    <TableCell className="[&>div]:justify-center text-lg" key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -108,7 +108,7 @@ export default function AppTable<T>({ data, columns,  BulkActions}: Props<T>) {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-24 text-center text-lg font-bold"
                 >
                   لا توجد نتائج.
                 </TableCell>

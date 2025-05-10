@@ -20,7 +20,7 @@ export default function DepartmentTable({data} : Props) {
     const confirmBulkDelete = () => {
         if (rowToDelete) {
           // Single row deletion
-          console.log("Deleting department:", rowToDelete.name)
+          console.log("Deleting department:", rowToDelete.id)
           //! delete single item
           setRowToDelete(null)
         } else {

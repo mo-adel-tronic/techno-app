@@ -1,13 +1,14 @@
-import { revalidatePath } from "next/cache";
+import { RevalidateKey } from "@/constants/RevalidateKey";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const req = await request.json();
-  const { path } = req;
-  if (!path) {
+  const { path, tag } = req;
+  if (!path && !tag) {
     return NextResponse.json(
       {
-        message: "Missing required fields",
+        message: "Missing required fields tag or path",
         data: null,
         error: true,
       },
@@ -15,7 +16,18 @@ export async function POST(request: Request) {
     );
   }
   try {
-    revalidatePath(path, 'layout')
+    if(path) {
+      revalidatePath(path, 'layout')
+    }
+    if (tag) {
+      if (tag == '*') {
+        for(const t of Object.values(RevalidateKey)) {
+          revalidateTag(t)
+        }
+      } else {
+        revalidateTag(tag)
+      }
+    }
     return NextResponse.json({
         message: "Cache revalidated",
         data: null,
