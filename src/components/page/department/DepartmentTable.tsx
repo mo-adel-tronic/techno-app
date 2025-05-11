@@ -2,13 +2,18 @@
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
 import AppTable from "@/components/shared/table/AppTable"
 import getTableCol from "@/components/shared/table/TableCols"
+import { RevalidateKey } from "@/constants/RevalidateKey"
 import { RoutesName } from "@/constants/RoutesName"
 import { Department } from "@/db/types"
+import { deleteBulkDepartments, deleteDepartment } from "@/features/department/DepartmentRepo"
+import { useRevalidate } from "@/hooks/revalidate"
 import {
   type ColumnDef,
   type Table as TableType,
 } from "@tanstack/react-table"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { toast } from "sonner"
 
 interface Props {
   data: Department[]
@@ -17,25 +22,37 @@ export default function DepartmentTable({data} : Props) {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
     const [rowToDelete, setRowToDelete] = useState<Department | null>(null)
     const [departmentTable, setDepartmentTable] = useState<TableType<Department> | null>(null)
-    const confirmBulkDelete = () => {
+    const router = useRouter();
+    const { revalidate } = useRevalidate();
+    const confirmBulkDelete = async () => {
         if (rowToDelete) {
           // Single row deletion
-          console.log("Deleting department:", rowToDelete.id)
+          var res = await deleteDepartment(rowToDelete.id || 0)
           //! delete single item
           setRowToDelete(null)
         } else {
           // Bulk deletion
           const selectedRows = departmentTable ? departmentTable.getFilteredSelectedRowModel().rows : []
-          console.log("Deleting", selectedRows.length, "departments")
+          const selectedIds = selectedRows.map(row => row.original.id || 0);
+          var res = await deleteBulkDepartments(selectedIds);
             //! Delete Bulk items
           // Reset selection after action
           if (departmentTable) departmentTable.resetRowSelection()
         }
+        await revalidate(RevalidateKey.AllDepartment, RevalidateKey.AllDepartment)
+        router.refresh()
+      if(res.success) {
+            toast.success('تم عملية الحذف بنجاح')
+          } else {
+            toast.error('هناك مشكلة في تنفيذ أمر الحذف، حاول مره أخرى')
+          }
         setIsDeleteDialogOpen(false)
     }
+
     const handleBulkDelete = () => {
       setIsDeleteDialogOpen(true)
     }
+
     const columns : ColumnDef<Department>[] = getTableCol<Department>({
         fields: [
             {
@@ -77,7 +94,8 @@ export default function DepartmentTable({data} : Props) {
                     setTable: setDepartmentTable
                 }
             }
-        ]
+        ],
+        setTableCall: setDepartmentTable
     })
 
     

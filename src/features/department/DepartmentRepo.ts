@@ -35,3 +35,39 @@ export async function addDepartment(department: Department) : Promise<{success: 
         }
     }
 }
+
+export async function deleteDepartment(
+  id: number
+): Promise<{ success: boolean }> {
+  try {
+    await Promise.resolve(
+      db.deleteFrom("department").where("id", "=", id).execute()
+    );
+    return {
+      success: true,
+    };
+  } catch (e) {
+    console.log("delete error: ", e);
+    return {
+      success: false,
+    };
+  }
+}
+
+export async function deleteBulkDepartments(
+  ids: number[]
+): Promise<{ success: boolean }> {
+  try {
+    await Promise.resolve(
+      db.deleteFrom("department").where("id", "in", ids).execute()
+    );
+    return {
+      success: true,
+    };
+  } catch (e) {
+    console.log("delete error: ", e);
+    return {
+      success: false,
+    };
+  }
+}

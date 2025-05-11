@@ -36,11 +36,13 @@ interface Props<T> {
   selectCheck?: boolean;
   fields: FieldType[];
   actions?: ActionType<T>[];
+  setTableCall?: Dispatch<SetStateAction<Table<T> | null>>
 }
 export default function getTableCol<T extends { id?: number }>({
   selectCheck = true,
   fields,
   actions,
+  setTableCall
 }: Props<T>): ColumnDef<T>[] {
   const cols: ColumnDef<T>[] = [];
   if (selectCheck) {
@@ -52,14 +54,24 @@ export default function getTableCol<T extends { id?: number }>({
             table.getIsAllPageRowsSelected() ||
             (table.getIsSomePageRowsSelected() && "indeterminate")
           }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          onCheckedChange={(value) => {
+            table.toggleAllPageRowsSelected(!!value)
+            if(setTableCall) {
+              setTableCall(table)
+            }
+          }}
           aria-label="تحديد الكل"
         />
       ),
-      cell: ({ row }) => (
+      cell: ({ table, row }) => (
         <Checkbox
           checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          onCheckedChange={(value) => {
+            row.toggleSelected(!!value)
+            if(setTableCall) {
+              setTableCall(table)
+            }
+          }}
           aria-label="تحديد الصف"
         />
       ),
