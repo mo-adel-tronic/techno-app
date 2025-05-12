@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { defaultDepartmentValues, DepartmentFormValues, DepartmentSchema } from "@/features/department/DepartmentRules";
 import { RoutesName } from "@/constants/RoutesName";
-import { addDepartment } from "@/features/department/DepartmentRepo";
+import { addDepartment, updateDepartment } from "@/features/department/DepartmentRepo";
 import { useRevalidate } from "@/hooks/revalidate";
 import { RevalidateKey } from "@/constants/RevalidateKey";
 
@@ -54,14 +54,24 @@ export default function DepartmentForm({
     setError(null);
 
     try {
-      const res = await addDepartment(data);
+      if(isEditMode) {
+        var res = await updateDepartment({
+          name: data.name,
+          depart_code: data.depart_code,
+          id: id
+        })
+      } else {
+        var res = await addDepartment(data);
+      }
       await revalidate(RevalidateKey.AllDepartment, RevalidateKey.AllDepartment)
-      router.push(RoutesName.DEPARTMENT);
+      if(!isEditMode) {
+        router.push(RoutesName.DEPARTMENT);
+      }
       router.refresh();
       if(res.success) {
-        toast.success(`تم إضافة قسم جديد بنجاح`)
+        toast.success(isEditMode? `تم تعديل بيانات القسم بنجاح` : `تم إضافة قسم جديد بنجاح`)
       } else {
-        toast.error('هناك مشكلة في تسجيل القسم الجديد')
+        toast.error(isEditMode ? 'هناك مشكلة في تعديل بيانات القسم' : 'هناك مشكلة في تسجيل القسم الجديد')
       }
     } catch (err) {
       console.error("Error submitting form:", err);
@@ -100,7 +110,7 @@ export default function DepartmentForm({
               <FormControl>
                 <Input placeholder={pageData.codeField.placeholder} {...field} />
               </FormControl>
-              <FormDescription className="text-xs text-gray-400 px-3">
+              <FormDescription>
                 {pageData.codeField.desc}
               </FormDescription>
               <FormMessage />

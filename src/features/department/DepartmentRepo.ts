@@ -16,20 +16,52 @@ export async function fetchAllDepartments(): Promise<Department[] | undefined> {
         )
         return cachedData()
 }
-export async function addDepartment(department: Department) : Promise<{success: boolean, id?: number}> {
+
+export async function fetchDepartment(id: number): Promise<Department | undefined> {
+    const res = await db.selectFrom('department')
+                .selectAll()
+                .where('id', '=', id)
+                .executeTakeFirst();
+    return res ? {
+      id: res.id,
+      name: res.name,
+      depart_code: res.depart_code
+    } : undefined
+}
+
+export async function addDepartment(department: Department) : Promise<{success: boolean}> {
     try {
-        const res = await Promise.resolve(db.insertInto('department')
+        await Promise.resolve(db.insertInto('department')
     .values({
         name: department.name,
         depart_code: department.depart_code
     })
     .execute())
     return {
-        success: true,
-        id: res[0]?.insertId !== undefined ? Number(res[0].insertId) : undefined
+        success: true
     }
     } catch (e) {
         console.log('insert error: ', e)
+        return {
+            success: false
+        }
+    }
+}
+
+export async function updateDepartment(department: Department) : Promise<{success: boolean}> {
+    try {
+        await Promise.resolve(db.updateTable('department')
+    .set({
+      name: department.name,
+      depart_code: department.depart_code
+    })
+    .where('id', '=', department.id)
+    .execute())
+    return {
+        success: true
+    }
+    } catch (e) {
+        console.log('update error: ', e)
         return {
             success: false
         }
