@@ -4,8 +4,8 @@ import AppTable from "@/components/shared/table/AppTable";
 import getTableCol from "@/components/shared/table/TableCols";
 import { RevalidateKey } from "@/constants/RevalidateKey";
 import { RoutesName } from "@/constants/RoutesName";
-import { Programs } from "@/db/types";
 import { deleteBulkPrograms, deletePrograms } from "@/features/programs/ProgramsRepo";
+import { ProgramsClient } from "@/features/programs/types";
 import { useRevalidate } from "@/hooks/revalidate";
 import { type ColumnDef, type Table as TableType } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
@@ -13,12 +13,12 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 interface Props {
-  data: Programs[];
+  data: ProgramsClient[];
 }
 export default function ProgramsTable({ data }: Props) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [rowToDelete, setRowToDelete] = useState<Programs | null>(null);
-  const [programsTable, setProgramsTable] = useState<TableType<Programs> | null>(
+  const [rowToDelete, setRowToDelete] = useState<ProgramsClient | null>(null);
+  const [programsTable, setProgramsTable] = useState<TableType<ProgramsClient> | null>(
     null
   );
   const router = useRouter();
@@ -57,7 +57,7 @@ export default function ProgramsTable({ data }: Props) {
     setIsDeleteDialogOpen(true);
   };
 
-  const columns: ColumnDef<Programs>[] = getTableCol<Programs>({
+  const columns: ColumnDef<ProgramsClient>[] = getTableCol<ProgramsClient>({
     fields: [
       {
         accessKey: "name",
@@ -109,7 +109,7 @@ export default function ProgramsTable({ data }: Props) {
   return (
     <div>
       {/* Table */}
-      <AppTable<Programs>
+      <AppTable<ProgramsClient>
         data={data}
         columns={columns}
         BulkActions={handleBulkDelete}

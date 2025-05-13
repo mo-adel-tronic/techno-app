@@ -34,7 +34,6 @@ export interface Programs {
   paper_hours: number;
   program_code: string;
   depart_id: number
-  depart_name: string
 }
 
 export interface DB {
