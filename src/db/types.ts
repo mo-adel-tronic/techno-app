@@ -27,9 +27,20 @@ export interface Specialization {
   depart_id: number;
 }
 
+export interface Programs {
+  readonly id?: number;
+  name: string;
+  subject_hours: number;
+  paper_hours: number;
+  program_code: string;
+  depart_id: number
+  depart_name: string
+}
+
 export interface DB {
   teachers: Teacher;
   department: Department;
   specialization: Specialization;
   teachers_jobs: TeacherJobs;
+  learning_programs: Programs;
 }
