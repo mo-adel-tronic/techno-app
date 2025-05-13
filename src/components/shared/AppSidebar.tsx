@@ -16,7 +16,7 @@ import {
   SidebarTrigger,
 } from "../ui/sidebar";
 import { Collapsible, CollapsibleTrigger } from "../ui/collapsible";
-import { Building, ChevronLeft, PenBox, User } from "lucide-react";
+import { Building, ChevronLeft, Library, PenBox, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
@@ -44,6 +44,11 @@ const data: { menu: SidebarItemType[] } = {
       title: "أعضاء هيئة التدريس",
       icon: <User className="text-app-secondary" />,
       href: RoutesName.TEACHER,
+    },
+    {
+      title: "البرامج الدراسية",
+      icon: <Library className="text-app-secondary" />,
+      href: RoutesName.PROGRAMS,
     },
   ],
 };

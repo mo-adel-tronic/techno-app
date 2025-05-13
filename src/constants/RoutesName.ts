@@ -5,6 +5,8 @@ export enum RoutesName {
     DEPARTMENT_CREATE = RoutesName.DEPARTMENT + '/create',
     TEACHER = RoutesName.DASHBOARD + '/teacher',
     TEACHER_CREATE = RoutesName.TEACHER + '/create',
+    PROGRAMS = RoutesName.DASHBOARD + '/programs',
+    PROGRAMS_CREATE = RoutesName.PROGRAMS + '/create',
 
     API_REVALIDATE = '/api/revalidate'
   }
