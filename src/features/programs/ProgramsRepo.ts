@@ -18,6 +18,17 @@ export async function fetchAllPrograms(): Promise<ProgramsClient[] | undefined> 
   return cachedData();
 }
 
+export async function fetchProgram(
+  id: number
+): Promise<Programs | undefined> {
+  const res = await db
+        .selectFrom("learning_programs")
+        .selectAll()
+        .where("id", "=", id)
+        .executeTakeFirst();
+  return res;
+}
+
 export async function deletePrograms(id: number): Promise<{ success: boolean }> {
   try {
     await Promise.resolve(

@@ -26,7 +26,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { defaultProgramsValues, ProgramsFormValues, ProgramsSchema } from "@/features/programs/ProgramsRules";
+import {
+  defaultProgramsValues,
+  ProgramsFormValues,
+  ProgramsSchema,
+} from "@/features/programs/ProgramsRules";
 import { addPrograms, updatePrograms } from "@/features/programs/ProgramsRepo";
 import { fetchAllDepartments } from "@/features/department/DepartmentRepo";
 
@@ -49,17 +53,17 @@ const pageData = {
   paperField: {
     label: "عدد ساعات الرسالة",
     placeholder: "حدد عدد ساعات الرسالة",
-    desc: "إذا لم يكن هناك رسالة في هذا البرنامج، اترك القيمة صفر"
+    desc: "إذا لم يكن هناك رسالة في هذا البرنامج، اترك القيمة صفر",
   },
   subjectField: {
     label: "عدد ساعات المقررات",
-    placeholder: 'حدد عدد ساعات المقررات لهذا البرنامج',
+    placeholder: "حدد عدد ساعات المقررات لهذا البرنامج",
     desc: "إذا لم يكن هناك رسالة في هذا البرنامج، اترك القيمة صفر",
   },
   departField: {
     label: "اختر القسم التابع له البرنامج",
-    placeholder: 'اختر القسم',
-  }
+    placeholder: "اختر القسم",
+  },
 };
 export default function ProgramForm({
   defaultValues = defaultProgramsValues,
@@ -85,8 +89,8 @@ export default function ProgramForm({
 
     try {
       let res: {
-      success: boolean;
-    };
+        success: boolean;
+      };
       if (isEditMode) {
         res = await updatePrograms({
           name: data.name,
@@ -102,7 +106,7 @@ export default function ProgramForm({
           depart_id: Number(data.depart_id),
           paper_hours: data.paper_hours,
           subject_hours: data.subject_hours,
-          program_code: data.program_code
+          program_code: data.program_code,
         });
       }
       await revalidate(RevalidateKey.AllPrograms, RevalidateKey.AllPrograms);
@@ -112,7 +116,9 @@ export default function ProgramForm({
       router.refresh();
       if (res.success) {
         toast.success(
-          isEditMode ? `تم تعديل بيانات البرنامج بنجاح` : `تم إضافة برنامج جديد بنجاح`
+          isEditMode
+            ? `تم تعديل بيانات البرنامج بنجاح`
+            : `تم إضافة برنامج جديد بنجاح`
         );
       } else {
         toast.error(
@@ -130,21 +136,21 @@ export default function ProgramForm({
   }
 
   const getDeparts = async () => {
-    const res = await fetchAllDepartments()
+    const res = await fetchAllDepartments();
     setDeparts(
       res
-        ? res.map(d => ({
+        ? res.map((d) => ({
             id: d.id ?? 0,
-            name: d.name
+            name: d.name,
           }))
         : []
-    )
-  }
+    );
+  };
 
-  const [departs, setDeparts] = useState<{id: number, name: string}[]>([])
+  const [departs, setDeparts] = useState<{ id: number; name: string }[]>([]);
   useEffect(() => {
-    getDeparts()
-  }, [])
+    getDeparts();
+  }, []);
   return (
     <Form {...form}>
       <form
@@ -205,9 +211,14 @@ export default function ProgramForm({
                 <FormLabel>{pageData.paperField.label}</FormLabel>
                 <FormControl>
                   <Input
-                    type='number'
+                    type="number"
                     placeholder={pageData.paperField.placeholder}
-                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) =>
+                      field.onChange(
+                        e.target.value === "" ? "" : Number(e.target.value)
+                      )
+                    }
                   />
                 </FormControl>
                 <FormDescription>{pageData.paperField.desc}</FormDescription>
@@ -227,9 +238,14 @@ export default function ProgramForm({
                 <FormLabel>{pageData.subjectField.label}</FormLabel>
                 <FormControl>
                   <Input
-                    type='number'
+                    value={field.value ?? ""}
+                    onChange={(e) =>
+                      field.onChange(
+                        e.target.value === "" ? "" : Number(e.target.value)
+                      )
+                    }
+                    type="number"
                     placeholder={pageData.subjectField.placeholder}
-                    {...field}
                   />
                 </FormControl>
                 <FormDescription>{pageData.subjectField.desc}</FormDescription>
@@ -248,13 +264,16 @@ export default function ProgramForm({
               >
                 <FormLabel>{pageData.departField.label}</FormLabel>
                 <FormControl>
-                    <Select
+                  <Select
                     dir="rtl"
-                  onValueChange={field.onChange}
-                  defaultValue={String(field.value)}
-                >
+                    onValueChange={(val) => field.onChange(Number(val))}
+                    value={field.value === undefined || field.value === null ? "" : String(field.value)}
+                    defaultValue={undefined}
+                  >
                     <SelectTrigger>
-                      <SelectValue placeholder={pageData.departField.placeholder} />
+                      <SelectValue
+                        placeholder={pageData.departField.placeholder}
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       {departs.map((d) => (
@@ -263,7 +282,7 @@ export default function ProgramForm({
                         </SelectItem>
                       ))}
                     </SelectContent>
-                </Select>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>

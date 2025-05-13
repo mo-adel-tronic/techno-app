@@ -1,6 +1,5 @@
 import HeaderBanner from "@/components/page/dashboard/HeaderBanner";
 import ProgramsTable from "@/components/page/programs/ProgramsTable";
-import TeacherTable from "@/components/page/teacher/TeacherTable";
 import { RoutesName } from "@/constants/RoutesName";
 import { fetchAllPrograms } from "@/features/programs/ProgramsRepo";
 
@@ -10,7 +9,7 @@ export default async function Programs() {
     <>
     <HeaderBanner title='إدارة البرامج الدراسية' linkCreate={{
         text: 'إضافة برنامج جديد',
-        href: RoutesName.TEACHER_CREATE
+        href: RoutesName.PROGRAMS_CREATE
     }} />
     <ProgramsTable data={programs || []} />
     
