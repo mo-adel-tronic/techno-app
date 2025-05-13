@@ -83,8 +83,11 @@ export default function TeacherForm({
     setError(null);
 
     try {
+      let res: {
+      success: boolean;
+    };
       if (isEditMode) {
-        var res = await updateTeacher({
+        res = await updateTeacher({
           name: data.name,
           degree: data.degree,
           email: data.email,
@@ -92,7 +95,7 @@ export default function TeacherForm({
           id: id,
         });
       } else {
-        var res = await addTeacher({
+        res = await addTeacher({
           name: data.name,
           degree: data.degree,
           email: data.email,

@@ -1,5 +1,4 @@
 import HeaderBanner from "@/components/page/dashboard/HeaderBanner";
-import Specialization from "@/components/page/department/Specialization";
 import TeacherJobsFields from "@/components/page/teacher/TeacherJobs";
 import ViewBox from "@/components/shared/ViewBox";
 import { RoutesName } from "@/constants/RoutesName";

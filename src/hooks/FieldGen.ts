@@ -1,4 +1,3 @@
-import { deleteSpecialization } from "@/features/department/SpecializationRepo";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -69,7 +68,7 @@ export function useFieldGen<
       v: string;
     }[];
   }) => {
-    let nativeObj: N = {} as N;
+    const nativeObj: N = {} as N;
     for (const f of values) {
       if (f.type == "r" && !f.v.trim()) {
         toast.error(`لا يمكن ترك بيانات الحقل ${f.arK} فارغ`);

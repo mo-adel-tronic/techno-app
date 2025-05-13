@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { JobsType } from "@/db/types";
 import { fetchAllDepartments } from "@/features/department/DepartmentRepo";
 import { AllowedTeacherJobs } from "@/features/teachers/TeacherJobRules";
@@ -50,7 +49,6 @@ export default function TeacherJobsFields({ teacherId }: Props) {
    */
   const {
     field,
-    setField,
     saveField,
     cancelEdit,
     editField,
