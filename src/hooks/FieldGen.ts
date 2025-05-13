@@ -25,16 +25,24 @@ export function useFieldGen<
   /**
    * ! **************** Remove Method ***********************
    */
-  const removeField = async (id: number) => {
-    if(id > 0) {
-        const res = await deleteSpecialization(id)
-        if(res.success) {
-            setField(field.filter((f) => f.id !== Number(id)));
-        } else {
-            toast.error('فشل عملية حذف العنصر من قاعدة البيانات')
-        }
-    } else {
+  const removeField = async ({
+    id,
+    onDelete
+  }: {
+    id: number;
+    onDelete?: (v: number) => Promise<{
+      success: boolean;
+    }>;
+  }) => {
+    if (id > 0 && onDelete) {
+      const res = await onDelete(id);
+      if (res.success) {
         setField(field.filter((f) => f.id !== Number(id)));
+      } else {
+        toast.error("فشل عملية حذف العنصر من قاعدة البيانات");
+      }
+    } else {
+      setField(field.filter((f) => f.id !== Number(id)));
     }
   };
 
@@ -118,7 +126,7 @@ export function useFieldGen<
       );
       setIsAdding(true);
     } else {
-        toast('لا يمكن تعديل أكثر من عنصر في نفس الوقت')
+      toast("لا يمكن تعديل أكثر من عنصر في نفس الوقت");
     }
   };
 
@@ -128,7 +136,7 @@ export function useFieldGen<
   const cancelEdit = (id: number, isNew: boolean) => {
     if (isNew) {
       // If it's a new language, remove it
-      removeField(id);
+      removeField({id});
     } else {
       // Otherwise, just cancel editing
       setField(
@@ -160,6 +168,7 @@ export function useFieldGen<
 
   return {
     field,
+    setField,
     saveField,
     cancelEdit,
     editField,

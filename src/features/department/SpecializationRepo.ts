@@ -64,9 +64,6 @@ export async function updateSpecialization(
         WHERE name = ${spec.name} AND depart_id = ${spec.depart_id}
     );
 `.execute(db);
-console.log(spec)
-console.log(res)
-
     return {
       success: true,
       rowChanged:

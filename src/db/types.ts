@@ -4,19 +4,15 @@ export interface Teacher {
   name: string;
   email: string;
   degree: "أ.د" | "أ.م.د" | "د" | "م.م" | "م";
+  t_order: number;
   access_token?: string | null;
 }
-
-export interface Permission {
-  id: number;
-  user_id: number;
-  management_id: number;
-  role: string;
-}
-
-export interface Management {
-  id: number;
-  name: string;
+export type JobsType = 'مسؤل' | 'المرشد الأكاديمي العام' | 'نائب المرشد الأكاديمي العام' | 'مرشد أكاديمي' | 'مدرس' | 'عضو لجنة'
+export interface TeacherJobs {
+  readonly id?: number;
+  job: JobsType;
+  teacher_id: number;
+  depart_id: number
 }
 
 export interface Department {
@@ -33,8 +29,7 @@ export interface Specialization {
 
 export interface DB {
   teachers: Teacher;
-  permissions: Permission;
-  managements: Management;
   department: Department;
   specialization: Specialization;
+  teachers_jobs: TeacherJobs;
 }

@@ -88,6 +88,7 @@ export default function getTableCol<T extends { id?: number }>({
           ? ({ column }) => {
               return (
                 <Button
+                  className="font-bold text-lg text-center"
                   variant="ghost"
                   onClick={() =>
                     column.toggleSorting(column.getIsSorted() === "asc")

@@ -5,10 +5,13 @@ import Link from "next/link";
 import { authOptions } from "@/features/auth/AuthOptions"
 import { getServerSession } from "next-auth"
 import SignoutBtn from "@/components/page/dashboard/SignoutBtn";
+import { Suspense, lazy } from "react";
+import LoadingPage from "../loading";
 
 export const metadata: Metadata = {
   title: "لوحة التحكم",
 };
+const LazyComponent = lazy(() => import('@/components/shared/LazyComponent'))
 export default async function DashboardLayout({
   children,
 }: Readonly<{
@@ -26,7 +29,11 @@ export default async function DashboardLayout({
                     <SignoutBtn />
                 </header>
                 <section className="w-[95%] rounded-lg bg-white text-app-text min-h-[400px] shadow-2xl mt-8 py-6 px-4">
-                {children}
+                <Suspense fallback={<LoadingPage />}>
+                    <LazyComponent>
+                        {children}
+                    </LazyComponent>
+                </Suspense>
                 </section>
                 </main>
             </AppSidebar>

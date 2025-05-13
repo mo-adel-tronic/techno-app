@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { type Specialization as SpecType } from "@/db/types";
 import {
   addSpecialization,
+  deleteSpecialization,
   fetchSpecialization,
   updateSpecialization,
 } from "@/features/department/SpecializationRepo";
@@ -157,7 +158,9 @@ export default function Specialization({ departId }: Props) {
                   size="sm"
                   variant="ghost"
                   className="text-red-500 hover:text-red-600"
-                  onClick={() => removeField(Number(sp.id ?? ""))}
+                  onClick={() => removeField({id: Number(sp.id ?? ""), onDelete: (v: number) => {
+                    return deleteSpecialization(v)
+                  }})}
                 >
                   <Trash className="h-4 w-4" />
                 </Button>

@@ -1,4 +1,5 @@
 const arabicNameRegex = /^[\u0600-\u06FF\s.'"-]+$/
+const digitRegex = /^\d+$/
 
 export type RuleType = {
   rule: RegExp,
@@ -8,6 +9,10 @@ const generalRules = {
   arabicNameRegex: {
     rule: arabicNameRegex,
     message: 'يجب أن يكون البيان باللغة العربية'
+  },
+  digitRegex: {
+    rule: digitRegex,
+    message: "يجب أن تكون القيمة رقمية"
   }
 }
 export default generalRules
