@@ -1,6 +1,5 @@
 import ClassroomTable from "@/components/page/classtable/ClassroomTable";
 import HeaderBanner from "@/components/page/dashboard/HeaderBanner";
-import Specialization from "@/components/page/department/Specialization";
 import ViewBox from "@/components/shared/ViewBox";
 import { RoutesName } from "@/constants/RoutesName";
 import { fetchClassroomsBySemester } from "@/features/classrooms/ClassroomRepo";

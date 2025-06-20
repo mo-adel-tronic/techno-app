@@ -1,9 +1,7 @@
 "use server";
 
-import { RevalidateKey } from "@/constants/RevalidateKey";
 import { db } from "@/db/conn";
 import { Subjects } from "@/db/types";
-import { appCache } from "@/lib/AppCache";
 
 export async function fetchSubjectById(
   id: number

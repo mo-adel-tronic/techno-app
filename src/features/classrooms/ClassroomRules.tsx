@@ -1,5 +1,3 @@
-import { semesterTerm } from "@/db/types";
-import generalRules from "@/lib/GlobalValidationRules";
 import * as z from "zod";
 import { fetchSubjectById } from "../subjects/SubjectRepo";
 import { fetchDepartment } from "../department/DepartmentRepo";

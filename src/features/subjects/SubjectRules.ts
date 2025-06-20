@@ -1,5 +1,4 @@
 import * as z from "zod";
-import { fetchRequirementById } from "../requirements/RequirementRepo";
 export const SubjectsSchema = z.object({
   name: z
     .string()

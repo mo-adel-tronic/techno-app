@@ -163,7 +163,7 @@ export function useFieldGen<
   };
 
   useEffect(() => {
-    getFields().then((v) => setIsAdding(false))
+    getFields().then(() => setIsAdding(false))
   }, []);
 
   return {
