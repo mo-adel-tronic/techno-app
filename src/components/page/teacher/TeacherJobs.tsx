@@ -14,16 +14,8 @@ import { JobsWithDepartment } from "@/features/teachers/types";
 import { useFieldGen } from "@/hooks/FieldGen";
 import { ChevronDown, Edit, Plus, Save, Trash, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-/*
-const updatedItem = {
-                        ...sp,
-                        job: e.target.value as JobsWithDepartment["job"],
-                      };
-                      setField(
-                        field.map((f) => (f.id == sp.id ? updatedItem : f))
-                      );
-**/
 /**
  * ! **************** Types ***********************
  */
@@ -89,7 +81,7 @@ export default function TeacherJobsFields({ teacherId }: Props) {
                   {/* First Select */}
                   <div className="relative">
                     <select
-                      value={currentObj ? currentObj.job : sp.job}
+                      value={currentObj ? (currentObj.job ?? "اختر وظيفة العضو") : sp.job}
                       onChange={(e) => {
                         if (currentObj)
                           setCurrentObj({
@@ -115,10 +107,9 @@ export default function TeacherJobsFields({ teacherId }: Props) {
                   {/* Second Select */}
                   <div className="relative">
                     <select
+                      id="teacherJob"
                       value={
-                        currentObj
-                          ? `${currentObj.depart_id}|${currentObj.departName}`
-                          : `${sp.depart_id}|${sp.departName}`
+                        currentObj ? (currentObj.departName ? `${currentObj.depart_id}|${currentObj.departName}` : "اختر القسم"): `${sp.depart_id}|${sp.departName}`
                       }
                       onChange={(e) => {
                         if (currentObj)
@@ -163,7 +154,7 @@ export default function TeacherJobsFields({ teacherId }: Props) {
                             type: "r",
                             k: "job",
                             arK: "الوظيفة",
-                            v: currentObj?.job || sp.job,
+                            v: currentObj?.job || (sp.job ?? ''),
                           },
                           {
                             type: "r",
@@ -185,16 +176,38 @@ export default function TeacherJobsFields({ teacherId }: Props) {
                           },
                         ],
                         onCreate: async (data) => {
-                          const res = await addTeacherJob({
-                            job: data.job,
-                            depart_id: data.depart_id,
-                            teacher_id: data.teacher_id,
-                          });
-                          return res;
+                          if(data.job) {
+                            const res = await addTeacherJob({
+                              job: data.job,
+                              depart_id: data.depart_id,
+                              teacher_id: data.teacher_id,
+                            });
+                            return res;
+                          } else {
+                            toast.error('لم يتم تحديد الوظيفة');
+                            return {
+                              success: false,
+                              id: 0,
+                              rowInserted: 0
+                          }
+                          }
                         },
                         onUpdate: async (data) => {
-                          const res = await updateTeacherJob(data);
-                          return res;
+                          if(data.job) {
+                            const res = await updateTeacherJob({
+                              id: data.id,
+                              job: data.job,
+                              depart_id: data.depart_id,
+                              teacher_id: data.teacher_id
+                            });
+                            return res;
+                          } else {
+                            toast.error('لم يتم تحديد الوظيفة');
+                            return {
+                              success: false,
+                              rowChanged: 0
+                          }
+                          }
                         },
                       });
                       setCurrentObj(null);
@@ -253,7 +266,7 @@ export default function TeacherJobsFields({ teacherId }: Props) {
         onClick={() => {
           const c: JobItem = {
             id: -1,
-            job: "مدرس",
+            job: undefined,
             depart_id: 0,
             departName: "",
             teacher_id: teacherId,

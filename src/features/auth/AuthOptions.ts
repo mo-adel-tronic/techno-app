@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions, Session } from 'next-auth';
 import AzureADProvider from 'next-auth/providers/azure-ad';
 import { JWT } from 'next-auth/jwt';
-import { findTeacherByEmail, updateToken } from '../teachers/TeacherRepo';
+import { findTeacherByEmailWithJobs, updateToken } from '../teachers/TeacherRepo';
 
 type Token = {
     accessToken: string;
@@ -24,6 +24,7 @@ type Token = {
         id: string;
         name?: string | null;
         email?: string | null;
+        jobs?: string | null
       };
       accessToken?: any
     }
@@ -122,9 +123,9 @@ export const authOptions: NextAuthOptions = {
       session: Session;
       token: JWT;
     }): Promise<Session> {
-      const user = await findTeacherByEmail(token.accessToken as string ,token.email || '')
+      const user = await findTeacherByEmailWithJobs(token.accessToken as string ,token.email || '')
       if (session.user && user) {
-        session.user = token.user as any;
+        session.user = {...token.user as any, jobs: user.jobs} as any;
         (session as any).error = token.error;
         (session as any).accessToken = token.accessToken;
       }

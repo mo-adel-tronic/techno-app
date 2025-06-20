@@ -16,11 +16,11 @@ import {
   SidebarTrigger,
 } from "../ui/sidebar";
 import { Collapsible, CollapsibleTrigger } from "../ui/collapsible";
-import { Building, ChevronLeft, Library, PenBox, User } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
-import { RoutesName } from "@/constants/RoutesName";
+import APP_MENU from "@/constants/MenuList";
 
 type SidebarItemType = {
   title: string;
@@ -29,28 +29,7 @@ type SidebarItemType = {
   children?: SidebarItemType[];
 };
 const data: { menu: SidebarItemType[] } = {
-  menu: [
-    {
-      title: "نظرة عامة",
-      icon: <PenBox className="text-app-secondary" />,
-      href: RoutesName.DASHBOARD,
-    },
-    {
-      title: "القسم العلمي",
-      icon: <Building className="text-app-secondary" />,
-      href: RoutesName.DEPARTMENT,
-    },
-    {
-      title: "أعضاء هيئة التدريس",
-      icon: <User className="text-app-secondary" />,
-      href: RoutesName.TEACHER,
-    },
-    {
-      title: "البرامج الدراسية",
-      icon: <Library className="text-app-secondary" />,
-      href: RoutesName.PROGRAMS,
-    },
-  ],
+  menu: APP_MENU,
 };
 export default function AppSidebar({
   children,
@@ -74,7 +53,7 @@ export default function AppSidebar({
           className="bg-app-primary text-xs grid text-white border-b-2 border-gray-200/40 py-4 items-center"
         >
           {isOpen && (
-            <div className="w-2/3 text-lg text-center font-text-en"><span className="text-app-secondary">T</span>echno <span className="text-app-secondary">T</span>orial</div>
+            <div className="w-2/3 text-lg text-center font-text-en"><span className="text-app-secondary-on-primary">T</span>echno <span className="text-app-secondary-on-primary">T</span>orial</div>
           )}
           <SidebarTrigger
             className="-ml-1 text-white"

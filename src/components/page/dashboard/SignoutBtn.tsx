@@ -9,7 +9,7 @@ export default function SignoutBtn() {
     <Button onClick={async () => {
         await revalidate("/", "*");
         signOut()
-    }} className="bg-red-400 hover:bg-red-500 text-white font-bold border border-gray-300 flex items-center justify-center gap-3 relative overflow-hidden group">
+    }} className="bg-white hover:bg-red-500 text-gray-800 hover:text-white font-bold border border-gray-300 flex items-center justify-center gap-3 relative overflow-hidden group">
       تسجيل خروج
     </Button>
   );

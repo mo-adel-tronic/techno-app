@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -36,13 +37,13 @@ interface Props<T> {
   selectCheck?: boolean;
   fields: FieldType[];
   actions?: ActionType<T>[];
-  setTableCall?: Dispatch<SetStateAction<Table<T> | null>>
+  setTableCall?: Dispatch<SetStateAction<Table<T> | null>>;
 }
 export default function getTableCol<T extends { id?: number }>({
   selectCheck = true,
   fields,
   actions,
-  setTableCall
+  setTableCall,
 }: Props<T>): ColumnDef<T>[] {
   const cols: ColumnDef<T>[] = [];
   if (selectCheck) {
@@ -55,9 +56,9 @@ export default function getTableCol<T extends { id?: number }>({
             (table.getIsSomePageRowsSelected() && "indeterminate")
           }
           onCheckedChange={(value) => {
-            table.toggleAllPageRowsSelected(!!value)
-            if(setTableCall) {
-              setTableCall(table)
+            table.toggleAllPageRowsSelected(!!value);
+            if (setTableCall) {
+              setTableCall(table);
             }
           }}
           aria-label="تحديد الكل"
@@ -67,9 +68,9 @@ export default function getTableCol<T extends { id?: number }>({
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => {
-            row.toggleSelected(!!value)
-            if(setTableCall) {
-              setTableCall(table)
+            row.toggleSelected(!!value);
+            if (setTableCall) {
+              setTableCall(table);
             }
           }}
           aria-label="تحديد الصف"
@@ -104,7 +105,10 @@ export default function getTableCol<T extends { id?: number }>({
           return (
             <div className="flex items-center gap-2">
               <span className="font-medium">
-                {row.getValue(field.accessKey)}
+                {Array.isArray(row.getValue(field.accessKey)) ? (row.getValue(field.accessKey) as {k: string, color: string}[]).map((item, i) => {
+                  console.log(item)
+                  return <Badge key={i} className={`${item.color} font-bold mr-2`}>{item.k}</Badge>
+                }) : row.getValue(field.accessKey)}
               </span>
             </div>
           );
@@ -127,7 +131,9 @@ export default function getTableCol<T extends { id?: number }>({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel className="font-bold text-app-primary bg-app-background text-center">الإجراءات</DropdownMenuLabel>
+              <DropdownMenuLabel className="font-bold text-app-primary bg-app-background text-center">
+                الإجراءات
+              </DropdownMenuLabel>
               {actions.map((action, i) => {
                 return (
                   <Fragment key={i}>
@@ -164,7 +170,9 @@ export default function getTableCol<T extends { id?: number }>({
                       <DropdownMenuItem className="justify-center">
                         {action.link.type == "view" && (
                           <Link
-                            href={action.link.href + "/" + entity.id!.toString()}
+                            href={
+                              action.link.href + "/" + entity.id!.toString()
+                            }
                           >
                             {action.link.text}
                           </Link>
@@ -172,7 +180,12 @@ export default function getTableCol<T extends { id?: number }>({
 
                         {action.link.type == "edit" && (
                           <Link
-                            href={action.link.href + "/" + entity.id!.toString() + '/edit'}
+                            href={
+                              action.link.href +
+                              "/" +
+                              entity.id!.toString() +
+                              "/edit"
+                            }
                           >
                             {action.link.text}
                           </Link>

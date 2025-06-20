@@ -11,7 +11,7 @@ export function useFieldGen<
    * ! **************** States ***********************
    */
   const [field, setField] = useState<T[]>([]);
-  const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [isAdding, setIsAdding] = useState<boolean>(true);
 
   /**
    * ! **************** Add Method ***********************
@@ -79,13 +79,11 @@ export function useFieldGen<
     let res:
       | { success: boolean; id?: number; rowInserted?: number }
       | { success: boolean; rowChanged?: number };
-
     if (id > 0) {
       res = await onUpdate(nativeObj);
     } else {
       res = await onCreate(nativeObj);
     }
-
     if (res && res.success) {
       let success = false;
       if ("rowInserted" in res && res.rowInserted) {
@@ -99,7 +97,7 @@ export function useFieldGen<
       if (success) {
         setField(
           field.map((f) =>
-            f.id === Number(id)
+            f.id == Number(id)
               ? { ...f, ...nativeObj, isEditing: false, isNew: false }
               : f
           )
@@ -121,7 +119,10 @@ export function useFieldGen<
   const editField = (id: number) => {
     if (!isAdding) {
       setField(
-        field.map((f) => (f.id === Number(id) ? { ...f, isEditing: true } : f))
+        field.map((f) => {
+          console.log(f.id, '********', id)
+          return (f.id == Number(id) ? { ...f, isEditing: true } : f)
+        })
       );
       setIsAdding(true);
     } else {
@@ -139,7 +140,7 @@ export function useFieldGen<
     } else {
       // Otherwise, just cancel editing
       setField(
-        field.map((f) => (f.id === Number(id) ? { ...f, isEditing: false } : f))
+        field.map((f) => (f.id == Number(id) ? { ...f, isEditing: false } : f))
       );
     }
     setIsAdding(false);
@@ -162,7 +163,7 @@ export function useFieldGen<
   };
 
   useEffect(() => {
-    getFields();
+    getFields().then((v) => setIsAdding(false))
   }, []);
 
   return {

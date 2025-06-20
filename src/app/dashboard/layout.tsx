@@ -5,35 +5,46 @@ import Link from "next/link";
 import { authOptions } from "@/features/auth/AuthOptions"
 import { getServerSession } from "next-auth"
 import SignoutBtn from "@/components/page/dashboard/SignoutBtn";
-import { Suspense, lazy } from "react";
-import LoadingPage from "../loading";
+import { headers } from "next/headers";
+import ForbiddenPage from "../forbidden/page";
 
 export const metadata: Metadata = {
   title: "لوحة التحكم",
 };
-const LazyComponent = lazy(() => import('@/components/shared/LazyComponent'))
 export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
     const session = await getServerSession(authOptions)
-    if(session?.accessToken) {
+    const headersList = await headers()
+    const fullUrl = headersList.get('x-url') || ''
+    console.log(session?.user , fullUrl)
+    if(session?.user.jobs 
+        && !session.user.jobs.includes('مسؤل') 
+        && !session.user.jobs.includes('عضو لجنة')
+        && !fullUrl.includes('subdashboard')) {
+            return <ForbiddenPage />
+    }
+    if(
+        session?.user.jobs 
+        && !session.user.jobs.includes('مسؤل') 
+        && ( fullUrl.includes('department') || fullUrl.includes('teacher') || fullUrl.includes('programs') )
+    ) {
+            return <ForbiddenPage />
+    }
+    if(session?.accessToken && session?.user.jobs) {
         return (
             <AppSidebar>
                 <main className="flex flex-col items-center bg-gradient-to-b from-app-background to-white h-full">
                 <header className="py-3 flex items-center justify-between w-full bg-app-primary px-4">
                     <Link href="/">
-                        <AppLogo width={40} height={40} />
+                        <AppLogo white={true} width={40} height={40} />
                     </Link>
                     <SignoutBtn />
                 </header>
                 <section className="w-[95%] rounded-lg bg-white text-app-text min-h-[400px] shadow-2xl mt-8 py-6 px-4">
-                <Suspense fallback={<LoadingPage />}>
-                    <LazyComponent>
-                        {children}
-                    </LazyComponent>
-                </Suspense>
+                {children}
                 </section>
                 </main>
             </AppSidebar>

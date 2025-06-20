@@ -28,7 +28,6 @@ export const ProgramsSchema = z.object({
         },
         { message: "القسم غير موجود" }
     )
-
 })
 
 export type ProgramsFormValues = z.infer<typeof ProgramsSchema>

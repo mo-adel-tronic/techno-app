@@ -1,5 +1,7 @@
 const arabicNameRegex = /^[\u0600-\u06FF\s.'"-]+$/
 const digitRegex = /^\d+$/
+const phoneRegex = /^01(0|1|2|4|5)\d{8}$/
+const globalPhoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
 
 export type RuleType = {
   rule: RegExp,
@@ -13,7 +15,15 @@ const generalRules = {
   digitRegex: {
     rule: digitRegex,
     message: "يجب أن تكون القيمة رقمية"
-  }
+  },
+  phoneRegex: {
+    rule: phoneRegex,
+    message: "رقم الهاتف غير صالح"
+  },
+  globalPhoneRegex: {
+    rule: globalPhoneRegex,
+    message: "رقم الهاتف الدولي غير صالح"
+  },
 }
 export default generalRules
 

@@ -2,7 +2,7 @@
 import { RevalidateKey } from "@/constants/RevalidateKey";
 import { RoutesName } from "@/constants/RoutesName";
 import { db } from "@/db/conn";
-import { Teacher } from "@/db/types";
+import { JobsType, Teacher } from "@/db/types";
 import { appCache } from "@/lib/AppCache";
 import { UpdateResult } from "kysely";
 
@@ -45,6 +45,76 @@ export async function findTeacherByEmail(
     { revalidate: 1800, tags: [`${RevalidateKey.TeacherGetByEmail}/${email}`] }
   );
   return cachedData();
+}
+
+export async function findTeacherByEmailWithJobs(
+  token: string,
+  email: string
+): Promise<(Teacher & {jobs?: string | undefined}) | undefined> {
+  const cachedData = appCache(
+    async () => {
+      const data = await db
+        .selectFrom("teachers")
+        .leftJoin('teachers_jobs', 'teachers_jobs.teacher_id', 'teachers.id')
+        .select([
+          'teachers.id as id',
+          'teachers.name as name',
+          'teachers.degree as degree',
+          'teachers.email as email',
+          'teachers.t_order as t_order',
+          'teachers.access_token as access_token',
+          db.fn("GROUP_CONCAT", ['teachers_jobs.job']).as("jobs"),
+        ])
+        .groupBy(["teachers.id"])
+        .where("teachers.email", "=", email)
+        .where("teachers.access_token", "=", token)
+        .executeTakeFirst();
+
+        return {
+          id: data?.id,
+          name: data?.name,
+          degree: data?.degree,
+          email: data?.email,
+          t_order: data?.t_order,
+          access_token: data?.access_token,
+          jobs: data?.jobs
+        }
+    },
+    [`${RevalidateKey.TeacherGetByEmailAndJob}/${email}`],
+    { revalidate: 1800, tags: [`${RevalidateKey.TeacherGetByEmailAndJob}/${email}`] }
+  );
+  const result = await cachedData();
+  if (!result) return undefined;
+  return {
+    id: result.id!,
+    name: result.name!,
+    degree: result.degree!,
+    email: result.email!,
+    t_order: result.t_order!,
+    access_token: result.access_token!,
+    jobs: result.jobs as string | undefined
+  };
+}
+
+export async function getDepartTeachers(
+  departId: number,
+  job: JobsType[]
+) : Promise<Teacher[] | undefined> {
+  const res = await db
+        .selectFrom("teachers")
+        .innerJoin('teachers_jobs', 'teachers.id', 'teachers_jobs.teacher_id')
+        .select([
+          'teachers.id as id',
+          'teachers.name as name',
+          'teachers.degree as degree',
+          'teachers.email as email',
+          'teachers.t_order as t_order',
+          'teachers.access_token as access_token'
+        ])
+        .where('teachers_jobs.depart_id', '=', departId)
+        .where('teachers_jobs.job', 'in', job)
+        .execute();
+  return res;
 }
 
 export async function updateToken(

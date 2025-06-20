@@ -18,6 +18,28 @@ export async function fetchAllPrograms(): Promise<ProgramsClient[] | undefined> 
   return cachedData();
 }
 
+export async function fetchProgramsById(
+  departId: number
+): Promise<Programs[] | undefined> {
+  const res = await db
+    .selectFrom("learning_programs")
+    .selectAll()
+    .where("depart_id", "=", departId)
+    .execute();
+  return res
+    ? res.map((item) => {
+        return {
+          id: item.id!,
+          name: item.name,
+          subject_hours: item.subject_hours,
+          paper_hours: item.paper_hours,
+          program_code: item.program_code,
+          depart_id: item.depart_id,
+        } as Programs;
+      })
+    : undefined;
+}
+
 export async function fetchProgram(
   id: number
 ): Promise<Programs | undefined> {

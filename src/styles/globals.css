@@ -78,7 +78,7 @@
 }
 
 :root {
-  --app-primary: #1a0342;
+  --app-primary: #09084C;
   --app-primary2: #736DDD;
   --app-primary-foreground: #fbfbfb;
   --app-secondary-on-primary: #FFE04A;
@@ -178,5 +178,13 @@
   }
   h1, h2, h3, h4 , h5 , h6 {
     @apply font-titles
+  }
+  .lg-content-padding {
+    padding-right: var(--lg-content-padding);
+    padding-left: var(--lg-content-padding);
+  }
+  .sm-content-padding {
+    padding-right: var(--sm-content-padding);
+    padding-left: var(--sm-content-padding);
   }
 }
