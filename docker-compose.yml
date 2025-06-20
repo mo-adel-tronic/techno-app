@@ -48,10 +48,11 @@ services:
       - app
     networks:
       - techno-app-network
-      
+
 networks:
   techno-app-network:
     driver: bridge
 
 volumes:
   mysql_data:
+  webroot:
