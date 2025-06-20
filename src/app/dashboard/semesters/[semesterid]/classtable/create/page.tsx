@@ -3,6 +3,8 @@ import HeaderBanner from "@/components/page/dashboard/HeaderBanner";
 import { RoutesName } from "@/constants/RoutesName";
 import { fetchAllDepartments } from "@/features/department/DepartmentRepo";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ClassroomCreate({params} : {params: Promise<{semesterid: number}>}) {
     const {semesterid} = await params
     const departs = await fetchAllDepartments()

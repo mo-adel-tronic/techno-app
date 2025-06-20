@@ -5,6 +5,8 @@ import { RoutesName } from "@/constants/RoutesName";
 import { fetchAllDepartments } from "@/features/department/DepartmentRepo";
 import { Suspense } from "react";
 
+export const dynamic = 'force-dynamic';
+
 export default function Department() {
   return <>
   <HeaderBanner title='إدارة القسم العلمي' linkCreate={{

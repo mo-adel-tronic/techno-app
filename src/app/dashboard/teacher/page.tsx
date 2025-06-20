@@ -3,6 +3,8 @@ import TeacherTable from "@/components/page/teacher/TeacherTable";
 import { RoutesName } from "@/constants/RoutesName";
 import { fetchAllTeachers } from "@/features/teachers/TeacherRepo";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Teacher() {
   const teachers = await fetchAllTeachers()
   return (

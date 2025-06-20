@@ -5,6 +5,8 @@ import { RoutesName } from "@/constants/RoutesName";
 import { fetchAllPrograms } from "@/features/programs/ProgramsRepo";
 import { Suspense } from "react";
 
+export const dynamic = 'force-dynamic';
+
 export default function Programs() {
   return <>
    <HeaderBanner title='إدارة البرامج الدراسية' linkCreate={{

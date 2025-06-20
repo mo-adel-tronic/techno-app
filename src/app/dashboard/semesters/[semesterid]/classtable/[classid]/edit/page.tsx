@@ -4,6 +4,8 @@ import { RoutesName } from "@/constants/RoutesName";
 import { fetchClassroomForEdit } from "@/features/classrooms/ClassroomRepo";
 import { fetchAllDepartments } from "@/features/department/DepartmentRepo";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ClassroomEdit({
   params,
 }: {

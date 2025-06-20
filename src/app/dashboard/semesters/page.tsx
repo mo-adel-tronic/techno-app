@@ -1,7 +1,9 @@
 import HeaderBanner from "@/components/page/dashboard/HeaderBanner";
+import { fetchAllSemesters } from "@/features/semesters/SemesterRepo";
 import SemesterTable from "@/components/page/semester/SemesterTable";
 import { RoutesName } from "@/constants/RoutesName";
-import { fetchAllSemesters } from "@/features/semesters/SemesterRepo";
+
+export const dynamic = 'force-dynamic';
 
 export default async function Semesters() {
   const semesters = await fetchAllSemesters()

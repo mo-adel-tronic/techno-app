@@ -6,6 +6,8 @@ import { ResearcherDetails } from "@/db/types";
 import { fetchAllResearchersDetails } from "@/features/researchers/ResearcherRepo";
 import { Suspense } from "react";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Researcher() {
   return <Suspense fallback={<LoadingPage />}>
     <ResearcherLoaded />
