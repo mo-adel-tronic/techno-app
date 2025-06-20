@@ -19,6 +19,7 @@ export default async function DashboardLayout({
     const session = await getServerSession(authOptions)
     const headersList = await headers()
     const fullUrl = headersList.get('x-url') || ''
+    
     if(session?.user.jobs 
         && !session.user.jobs.includes('مسؤل') 
         && !session.user.jobs.includes('عضو لجنة')
